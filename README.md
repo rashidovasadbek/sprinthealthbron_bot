@@ -1,6 +1,6 @@
-# mediwell02_bron_bot
+# sprinthealth02_bron_bot
 
-Mediwell'ning **ikkinchi bank sho'ti (kod `02`)** bo'yicha bron yig'uvchi Telegram bot — [@mediwell02_bron_bot](https://t.me/mediwell02_bron_bot).
+Sprint Health'ning **ikkinchi bank sho'ti (kod `02`)** bo'yicha bron yig'uvchi Telegram bot — [@sprinthelth_bron_bot](https://t.me/sprinthelth_bron_bot).
 
 Menejer aptekani tanlaydi → dorilarni bron qiladi → Excel spesifikatsiya oladi → bron **bron guruhiga** tushadi → to'lov qilingach **oplata guruhiga** o'tadi.
 
@@ -29,7 +29,7 @@ Testlar yoki linter sozlamasi yo'q.
 | `OPLATA_GROUP_ID` | To'lov qilinganlar tushadigan guruh |
 | `BOOTSTRAP_ADMIN_ID` | Faqat birinchi ishga tushirish uchun: bazada admin bo'lmasa, shu ID admin qilib yoziladi |
 | `DB_USER` / `DB_PASSWORD` / `DB_NAME` / `DB_HOST` / `DB_PORT` | PostgreSQL |
-| `COMPANY_CODE` | `company.code` — odatda `mediwell` |
+| `COMPANY_CODE` | `company.code` — odatda `sprinthealth` |
 
 Adminlar `.env` da emas, **bazada** (`app_user.role`). Admin qo'shish uchun kod ham, qayta ishga tushirish ham kerak emas.
 
@@ -79,14 +79,14 @@ Bron yaratilganda narx, NDS va qator jami `bron_item` ga **snapshot** qilinadi �
 
 ## Deploy
 
-Server: `asadbek@193.180.209.245`, papka `/home/asadbek/farm/mediwell02_bron_bot/`, baza `mediwell02_bron`.
+Server: `asadbek@193.180.209.245`, papka `/home/asadbek/farm/sprinthealth02_bron_bot/`, baza `sprinthealth02_bron`.
 
 ```bash
 git pull origin main
 ./venv/bin/pip install -r requirements.txt   # requirements o'zgargan bo'lsa
 ./venv/bin/python -m db.migrate              # yangi migration bo'lsa
-sudo systemctl restart mediwell02bot.service
-journalctl -u mediwell02bot.service -f
+sudo systemctl restart sprinthealth02bot.service
+journalctl -u sprinthealth02bot.service -f
 ```
 
 Sog'lom start log'i: `Bot ishga tushdi... 🚀`
@@ -96,3 +96,35 @@ Shu serverda `farm_bot` (`@spets_sos_bot`) ham ishlaydi — alohida baza, alohid
 ## Sxemani o'zgartirish
 
 `db/migrations/` ga yangi `00N_*.sql` qo'shing va `python -m db.migrate` yugurtiring. Mavjud fayllar **tahrirlanmaydi** — ular allaqachon qo'llangan.
+
+## Rebrending: MEDIWELL → SPRINT HEALTH
+
+Kodda barcha nomlar allaqachon `sprinthealth` ga o'tkazilgan. Quyidagilar
+**kod tashqarisida** — qo'lda bajariladi, aks holda README dagi nomlar
+haqiqatga mos kelmaydi:
+
+1. **BotFather** — yangi bot yaratilgan: `@sprinthelth_bron_bot`, token `.env` da.
+   (Username'da «a» yo'q — `sprinthealth...` variantlari band edi, shu qoldirildi.)
+   Eski `@mediwell02_bron_bot` guruhlardan chiqarilsin, aks holda ikkala bot
+   bir xil guruhga yozadi.
+2. **PostgreSQL** — baza va rol qayta nomlanadi:
+   ```sql
+   ALTER DATABASE mediwell02_bron RENAME TO sprinthealth02_bron;
+   ALTER ROLE     mediwell02_user RENAME TO sprinthealth02_user;
+   ```
+   Baza nomini o'zgartirish uchun unga ulangan sessiya bo'lmasligi kerak —
+   avval botni to'xtating. Keyin `.env` dagi `DB_NAME` / `DB_USER` yangilanadi.
+3. **systemd** — unit fayli qayta nomlanadi:
+   ```bash
+   sudo systemctl stop mediwell02bot.service
+   sudo systemctl disable mediwell02bot.service
+   sudo mv /etc/systemd/system/mediwell02bot.service \
+           /etc/systemd/system/sprinthealth02bot.service
+   # unit ichidagi WorkingDirectory / ExecStart yo'llarini yangilang
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now sprinthealth02bot.service
+   ```
+4. **Papka** — server: `/home/asadbek/farm/mediwell02_bron_bot/` →
+   `/home/asadbek/farm/sprinthealth02_bron_bot/`. Lokalda ham xuddi shunday.
+5. **`.env`** — `COMPANY_CODE=sprinthealth`, `DB_NAME`, `DB_USER` yangilanadi,
+   so'ng `python -m db.migrate` (003 kompaniya yozuvini yangilaydi).

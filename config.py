@@ -90,7 +90,7 @@ def load_settings() -> Settings:
         db_host=os.getenv("DB_HOST", "localhost").strip() or "localhost",
         db_port=int(os.getenv("DB_PORT", "5432").strip() or "5432"),
         log_level=os.getenv("LOG_LEVEL", "INFO").strip().upper() or "INFO",
-        company_code=os.getenv("COMPANY_CODE", "mediwell").strip() or "mediwell",
+        company_code=os.getenv("COMPANY_CODE", "sprinthealth").strip() or "sprinthealth",
     )
 
 
@@ -107,7 +107,7 @@ def load_db_settings() -> Settings:
         db_host=os.getenv("DB_HOST", "localhost").strip() or "localhost",
         db_port=int(os.getenv("DB_PORT", "5432").strip() or "5432"),
         log_level=os.getenv("LOG_LEVEL", "INFO").strip().upper() or "INFO",
-        company_code=os.getenv("COMPANY_CODE", "mediwell").strip() or "mediwell",
+        company_code=os.getenv("COMPANY_CODE", "sprinthealth").strip() or "sprinthealth",
     )
 
 

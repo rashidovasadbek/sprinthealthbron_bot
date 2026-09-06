@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""mediwell02_bron_bot — kirish nuqtasi.
+"""sprinthealth02_bron_bot — kirish nuqtasi.
 
 Ishga tushirish:
     venv\\Scripts\\activate      (Windows)

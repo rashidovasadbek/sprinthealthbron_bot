@@ -21,15 +21,15 @@ INSERT INTO region (name, code, sort_order) VALUES
 
 
 -- Kompaniya. account_code = '02' — bu botning butun mazmuni shunda.
--- ⚠️ address va account_no tasdiqlanishi kerak (farm_botda manzil TODO edi,
---    sho't raqami esa '01' kodli hisobga tegishli). Admin panel orqali
---    tahrirlanadi — kod o'zgartirish shart emas.
+-- ⚠️ address hali tasdiqlanmagan (farm_botda ham TODO edi) — admin panel
+--    orqali tahrirlanadi, kod o'zgartirish shart emas.
+--    account_no esa '02' kodli hisobning sho'ti — tasdiqlangan.
 INSERT INTO company (code, name, address, account_no, bank_name, inn, mfo, director, account_code, header_emoji)
 VALUES (
-    'mediwell',
-    'OOO "MEDIWELL" MCHJ',
+    'sprinthealth',
+    'OOO "SPRINT HEALTH" MCHJ',
     NULL,
-    '20208000607367249001',
+    '20208000807367249002',
     '"InFinBANK"',
     '312636862',
     '01070',
@@ -40,4 +40,4 @@ VALUES (
 
 -- Shartnoma raqami hisoblagichi nolda boshlanadi
 INSERT INTO counter (company_id, last_seq)
-SELECT id, 0 FROM company WHERE code = 'mediwell';
+SELECT id, 0 FROM company WHERE code = 'sprinthealth';

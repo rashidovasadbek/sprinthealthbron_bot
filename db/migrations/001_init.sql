@@ -1,5 +1,5 @@
 -- ============================================================
---  mediwell02_bron_bot — boshlang'ich sxema
+--  sprinthealth02_bron_bot — boshlang'ich sxema
 -- ============================================================
 -- Eslatma: bu fayl bir marta ishlaydi va qayta o'zgartirilmaydi.
 -- Sxemani o'zgartirish kerak bo'lsa — yangi 00N_*.sql fayl qo'shing.
@@ -13,8 +13,8 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
 -- (SELLER_DETAILS / COMPANY_HEADER / BANK_BLOCK) — endi bazada.
 CREATE TABLE company (
     id            SERIAL PRIMARY KEY,
-    code          TEXT NOT NULL UNIQUE,          -- 'mediwell'
-    name          TEXT NOT NULL,                 -- OOO "MEDIWELL" MCHJ
+    code          TEXT NOT NULL UNIQUE,          -- 'sprinthealth'
+    name          TEXT NOT NULL,                 -- OOO "SPRINT HEALTH" MCHJ
     address       TEXT,
     account_no    TEXT,                          -- H/r
     bank_name     TEXT,
