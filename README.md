@@ -1,4 +1,4 @@
-# sprinthealth02_bron_bot
+# sprinthealth_bron_bot
 
 Sprint Health'ning **ikkinchi bank sho'ti (kod `02`)** bo'yicha bron yig'uvchi Telegram bot — [@sprinthelth_bron_bot](https://t.me/sprinthelth_bron_bot).
 
