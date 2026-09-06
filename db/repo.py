@@ -195,7 +195,12 @@ PHARMACY_SELECT = """
 
 
 async def search_pharmacies(company_id: int, query: str, limit: int = 30):
-    """Nom yoki INN bo'yicha qidiruv — xato yozilganda ham topadi (pg_trgm)."""
+    """Nom, INN yoki shartnoma raqami bo'yicha qidiruv.
+
+    Nomda xato bo'lsa ham topadi (pg_trgm similarity).
+    Shartnoma raqami start_bron xabarida va'da qilingan, lekin
+    so'rovda yo'q edi — "N01/90/02" deb yozilsa hech narsa chiqmasdi.
+    """
     async with get_pool().acquire() as conn:
         if not query:
             return await conn.fetch(
@@ -207,6 +212,7 @@ async def search_pharmacies(company_id: int, query: str, limit: int = 30):
             WHERE p.active
               AND (p.inn = $2
                    OR p.name ILIKE '%' || $2 || '%'
+                   OR c.contract_no ILIKE '%' || $2 || '%'
                    OR similarity(lower(p.name), lower($2)) > 0.3)
             ORDER BY similarity(lower(p.name), lower($2)) DESC, p.name
             LIMIT $3""",
