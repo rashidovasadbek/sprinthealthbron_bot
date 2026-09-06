@@ -79,14 +79,14 @@ Bron yaratilganda narx, NDS va qator jami `bron_item` ga **snapshot** qilinadi �
 
 ## Deploy
 
-Server: `asadbek@193.180.209.245`, papka `/home/asadbek/farm/sprinthealth02_bron_bot/`, baza `sprinthealth02_bron`.
+Server: `asadbek@193.180.209.245`, papka `/home/asadbek/farm/sprinthealth_bron_bot/`, baza `sprinthealth_bron`.
 
 ```bash
 git pull origin main
 ./venv/bin/pip install -r requirements.txt   # requirements o'zgargan bo'lsa
 ./venv/bin/python -m db.migrate              # yangi migration bo'lsa
-sudo systemctl restart sprinthealth02bot.service
-journalctl -u sprinthealth02bot.service -f
+sudo systemctl restart sprinthealthbot.service
+journalctl -u sprinthealthbot.service -f
 ```
 
 Sog'lom start log'i: `Bot ishga tushdi... 🚀`
@@ -99,32 +99,23 @@ Shu serverda `farm_bot` (`@spets_sos_bot`) ham ishlaydi — alohida baza, alohid
 
 ## Rebrending: MEDIWELL → SPRINT HEALTH
 
-Kodda barcha nomlar allaqachon `sprinthealth` ga o'tkazilgan. Quyidagilar
-**kod tashqarisida** — qo'lda bajariladi, aks holda README dagi nomlar
-haqiqatga mos kelmaydi:
+Bajarilgan — bu yerda faqat nima o'zgargani yozib qo'yilgan.
 
-1. **BotFather** — yangi bot yaratilgan: `@sprinthelth_bron_bot`, token `.env` da.
-   (Username'da «a» yo'q — `sprinthealth...` variantlari band edi, shu qoldirildi.)
-   Eski `@mediwell02_bron_bot` guruhlardan chiqarilsin, aks holda ikkala bot
-   bir xil guruhga yozadi.
-2. **PostgreSQL** — baza va rol qayta nomlanadi:
-   ```sql
-   ALTER DATABASE mediwell02_bron RENAME TO sprinthealth02_bron;
-   ALTER ROLE     mediwell02_user RENAME TO sprinthealth02_user;
-   ```
-   Baza nomini o'zgartirish uchun unga ulangan sessiya bo'lmasligi kerak —
-   avval botni to'xtating. Keyin `.env` dagi `DB_NAME` / `DB_USER` yangilanadi.
-3. **systemd** — unit fayli qayta nomlanadi:
-   ```bash
-   sudo systemctl stop mediwell02bot.service
-   sudo systemctl disable mediwell02bot.service
-   sudo mv /etc/systemd/system/mediwell02bot.service \
-           /etc/systemd/system/sprinthealth02bot.service
-   # unit ichidagi WorkingDirectory / ExecStart yo'llarini yangilang
-   sudo systemctl daemon-reload
-   sudo systemctl enable --now sprinthealth02bot.service
-   ```
-4. **Papka** — server: `/home/asadbek/farm/mediwell02_bron_bot/` →
-   `/home/asadbek/farm/sprinthealth02_bron_bot/`. Lokalda ham xuddi shunday.
-5. **`.env`** — `COMPANY_CODE=sprinthealth`, `DB_NAME`, `DB_USER` yangilanadi,
-   so'ng `python -m db.migrate` (003 kompaniya yozuvini yangilaydi).
+| Nima | Eski | Yangi |
+|---|---|---|
+| `company.code` | `mediwell` | `sprinthealth` |
+| `company.name` | `OOO "MEDIWELL" MCHJ` | `OOO "SPRINT HEALTH" MCHJ` |
+| `company.account_no` | `20208000607367249001` | `20208000807367249002` |
+| Bot | `@mediwell02_bron_bot` | `@sprinthelth_bron_bot` |
+| Baza / rol | `mediwell02_bron` / `mediwell02_user` | `sprinthealth_bron` / `sprinthealth_user` |
+| Papka | `mediwell02_bron_bot` | `sprinthealth_bron_bot` |
+| systemd | `mediwell02bot.service` | `sprinthealthbot.service` |
+
+Nomlardagi `02` olib tashlandi, lekin **`company.account_code` hamon `02`** —
+u shartnoma raqamiga (`A/C`) tushadi va mavjud hujjatlarga bog'langan.
+
+Bank rekvizitlari (`"InFinBANK"`, INN `312636862`, MFO `01070`, direktor)
+o'zgarmadi. `address` hamon `NULL` — admin panel orqali to'ldiriladi.
+
+Bot username'ida imlo xatosi bor (`sprinthelth`, «a» yo'q) — `sprinthealth...`
+variantlari band edi.

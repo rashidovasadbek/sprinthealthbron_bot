@@ -1,5 +1,5 @@
 -- ============================================================
---  sprinthealth02_bron_bot — boshlang'ich sxema
+--  sprinthealth_bron_bot — boshlang'ich sxema
 -- ============================================================
 -- Eslatma: bu fayl bir marta ishlaydi va qayta o'zgartirilmaydi.
 -- Sxemani o'zgartirish kerak bo'lsa — yangi 00N_*.sql fayl qo'shing.
