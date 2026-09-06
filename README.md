@@ -33,7 +33,14 @@ Testlar yoki linter sozlamasi yo'q.
 
 Adminlar `.env` da emas, **bazada** (`app_user.role`). Admin qo'shish uchun kod ham, qayta ishga tushirish ham kerak emas.
 
-> Guruhlar hozir oddiy `group` turida. Supergroup'ga o'tkazilsa **ID o'zgaradi** — `.env` ni yangilash kerak.
+> Guruh supergroup'ga o'tkazilsa **ID o'zgaradi** — `.env` ni yangilash kerak.
+> Log'da `TelegramMigrateToChat: group chat was upgraded to a supergroup chat`
+> chiqadi. Yangi ID ni topish uchun (hech qanday xabar qoldirmaydi):
+>
+> ```bash
+> curl -s "https://api.telegram.org/bot<TOKEN>/sendChatAction?chat_id=<ESKI_ID>&action=typing"
+> # javobdagi parameters.migrate_to_chat_id — yangi ID
+> ```
 
 ## Arxitektura
 
