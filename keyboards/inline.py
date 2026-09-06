@@ -41,7 +41,7 @@ def pharmacy_results(rows) -> InlineKeyboardMarkup:
     b = InlineKeyboardBuilder()
     for r in rows:
         b.row(InlineKeyboardButton(
-            text=f"🏢 {r['name']} — №{r['contract_no']}",
+            text=f"🏢 {r['name']} — {r['contract_no']}",
             callback_data=f"{CB_PICK_PHARMACY}{r['id']}",
         ))
     return b.as_markup()

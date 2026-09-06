@@ -129,11 +129,11 @@ async def inline_search(query: types.InlineQuery, company):
         results.append(types.InlineQueryResultArticle(
             id=str(row["id"]),
             title=row["name"],
-            description=f"INN: {row['inn']}  |  №{row['contract_no']}  |  {row['region_name']}",
+            description=f"INN: {row['inn']}  |  {row['contract_no']}  |  {row['region_name']}",
             input_message_content=types.InputTextMessageContent(
                 message_text=(
                     f"🏢 <b>{esc(row['name'])}</b>\n"
-                    f"📄 Shartnoma №{esc(row['contract_no'])}"
+                    f"📄 Shartnoma {esc(row['contract_no'])}"
                 ),
                 parse_mode="HTML",
             ),
@@ -166,7 +166,7 @@ async def pick_pharmacy(callback: types.CallbackQuery, state: FSMContext, compan
     await callback.bot.send_message(
         chat_id,
         f"🏢 <b>{esc(pharmacy['name'])}</b>\n"
-        f"📄 Shartnoma №{esc(pharmacy['contract_no'])}"
+        f"📄 Shartnoma {esc(pharmacy['contract_no'])}"
         f"  ({date.strftime('%d.%m.%Y') if date else '—'})\n"
         f"📍 {esc(pharmacy['region_name'])}  |  👤 {esc(pharmacy['manager_name'] or '—')}\n\n"
         f"Dorilarni tanlang va miqdorini kiriting:",

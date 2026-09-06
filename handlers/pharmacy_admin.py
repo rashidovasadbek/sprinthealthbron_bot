@@ -162,8 +162,8 @@ async def new_pharmacy_save(message: types.Message, state: FSMContext,
         f"🔢 INN: <code>{esc(data['ph_inn'])}</code>\n"
         f"📍 {esc(data['ph_region_name'])}\n"
         f"📞 {esc(phone) if phone else '—'}\n"
-        f"📄 Shartnoma №<b>{esc(contract['contract_no'])}</b>\n"
-        f"   <i>(A={seq} / C={esc(contract['account_code'])})</i>\n"
+        f"📄 Shartnoma <b>{esc(contract['contract_no'])}</b>\n"
+        f"   <i>(N{seq:02d} — tartib, {esc(contract['region_code'])} — viloyat, {esc(contract['account_code'])} — sho't kodi)</i>\n"
         f"📅 {contract['contract_date'].strftime('%d.%m.%Y')}",
         parse_mode="HTML",
         reply_markup=kb.admin_menu(user["role"]),

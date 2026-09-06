@@ -63,7 +63,7 @@ def spec_header(pharmacy) -> str:
     return (
         f"💊 <b>SPESIFIKATSIYA</b>\n"
         f"🏢 <b>{esc(pharmacy['name'])}</b>\n"
-        f"📄 Shartnoma №{esc(pharmacy['contract_no'])}\n"
+        f"📄 Shartnoma {esc(pharmacy['contract_no'])}\n"
         f"{LINE}"
     )
 
@@ -106,7 +106,7 @@ def bron_group_messages(bron_id: int, pharmacy, totals: Totals,
         f"🚀 <b>YANGI BRON</b> №{bron_id}\n"
         f"🏢 <b>{esc(pharmacy['name'])}</b>\n"
         f"📍 {esc(pharmacy['region_name'])}  |  👤 {esc(manager_name)}\n"
-        f"📄 Shartnoma №{esc(pharmacy['contract_no'])}\n"
+        f"📄 Shartnoma {esc(pharmacy['contract_no'])}\n"
         f"{SHORT_LINE}"
     )
     footer = (
@@ -125,7 +125,7 @@ def oplata_group_messages(bron, totals: Totals) -> list[str]:
         f"💳 <b>TO'LOV QILINDI</b>  |  Bron №{bron['id']}\n"
         f"🏢 <b>{esc(bron['pharmacy_name'])}</b>\n"
         f"🔢 INN: <code>{esc(bron['inn'])}</code>\n"
-        f"📄 Shartnoma №{esc(bron['doc_contract_no'])}\n"
+        f"📄 Shartnoma {esc(bron['doc_contract_no'])}\n"
         f"📅 Sana: {_date(bron['doc_contract_date'])}\n"
         f"📍 {esc(bron['region_name'])}\n"
         f"{SHORT_LINE}"
@@ -146,7 +146,7 @@ def manager_receipt_messages(company, pharmacy, totals: Totals) -> list[str]:
     """
     header = (
         f"{bank_block(company)}\n"
-        f"📄 <b>Shartnoma №:</b> {esc(pharmacy['contract_no'])}\n"
+        f"📄 <b>Shartnoma:</b> {esc(pharmacy['contract_no'])}\n"
         f"📅 <b>Sana:</b> {_date(pharmacy['contract_date'])}\n"
         f"{SHORT_LINE}"
     )
@@ -169,7 +169,7 @@ def pharmacy_block(row) -> str:
         f"📍 {esc(row['region_name'])}\n"
         f"🔢 INN: <code>{esc(row['inn'])}</code>\n"
         f"📞 {phone}\n"
-        f"📄 Shartnoma №: <code>{esc(row['contract_no'] or '—')}</code>\n"
+        f"📄 Shartnoma: <code>{esc(row['contract_no'] or '—')}</code>\n"
         f"📅 Sana: {_date(row['contract_date'])}\n"
         f"👤 Menejer: {esc(row['manager_name'] or '—')}"
     )

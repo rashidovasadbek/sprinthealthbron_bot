@@ -62,9 +62,15 @@ To'lov tugmasini faqat `admin` va `buxgalter` bosa oladi.
 
 ### Shartnoma raqami
 
-Format `A/C`:
-- **A** — `counter` jadvalidan, `UPDATE … RETURNING` bilan (atomar, poyga yo'q)
+Format `N{A}/{B}/{C}` — masalan `N01/90/02`:
+- **A** — `counter` jadvalidan, `UPDATE … RETURNING` bilan (atomar, poyga yo'q).
+  Kamida ikki xonagacha nol bilan to'ldiriladi (`1` → `01`), 99 dan oshsa
+  tabiiy o'sadi (`100` → `N100`)
+- **B** — viloyat kodi (`region.code`)
 - **C** — kompaniyaning sho't kodi — bu botda doim **`02`**
+
+Raqamning o'zida `N` bor, shuning uchun xabarlarda «№» takrorlanmaydi —
+«Shartnoma N01/90/02» deb chiqadi.
 
 ### Pul hisobi
 

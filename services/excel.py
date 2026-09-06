@@ -112,7 +112,7 @@ def build_spec_excel(totals: Totals, company, pharmacy) -> bytes:
         pharmacy["name"],
         f"Region: {pharmacy['region_name']}",
         f"Menejer: {pharmacy['manager_name'] or '—'}",
-        f"Shartnoma: №{pharmacy['contract_no']}"
+        f"Shartnoma: {pharmacy['contract_no']}"
         f"  ({contract_date.strftime('%d.%m.%Y') if contract_date else '—'})",
         f"INN: {pharmacy['inn']}",
         f"Tel: {pharmacy['phone'] or '—'}",
